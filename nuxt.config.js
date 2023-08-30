@@ -1,19 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
 
-// Default theme
-const tccDefaultLightTheme = {
-  dark: false,
-  colors: {
-    primary: colors.blue.darken2,
-    accent: colors.grey.darken3,
-    secondary: colors.amber.darken3,
-    info: colors.teal.lighten1,
-    warning: colors.amber.base,
-    error: colors.deepOrange.accent4,
-    success: colors.green.accent3,
-  },
-}
-
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -64,9 +50,16 @@ export default {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: false,
       themes: {
-        tccDefaultLightTheme
+        light: {
+          primary: colors.blue.darken2,
+          accent: colors.grey.darken3,
+          secondary: colors.amber.darken4,
+          info: colors.teal.lighten1,
+          warning: colors.amber.base,
+          error: colors.deepOrange.accent4,
+          success: colors.green.lighten2,
+        },
       },
     },
   },

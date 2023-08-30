@@ -2,17 +2,21 @@
   <v-app>
     <v-app-bar :clipped-left="clipped" color="primary" fixed app>
       <v-spacer />
-      <v-img
-        :src="require('../assets/logoTCC2.png')"
-        height="50"
-        min-width="500"
-        aspect-ratio="2:1"
-        cover
-      ></v-img>
+      <NuxtLink to="/">
+        <v-row>
+          <v-img
+            :src="require('../assets/logoTCC2.png')"
+            height="50"
+            width="500"
+            aspect-ratio="2/1"
+            cover
+          ></v-img>
+        </v-row>
+      </NuxtLink>
       <v-spacer />
     </v-app-bar>
     <v-main>
-      <v-container fluid>
+      <v-container>
         <Nuxt />
       </v-container>
     </v-main>

@@ -27,16 +27,22 @@
         ></v-textarea>
       </v-card-text>
     </v-card>
-    <v-card class="pa-8 cadastro mt-12">
+    <v-card class="pa-8 mt-12">
       <h1 class="mb-2">Comentários</h1>
-      <v-card-text>
-        <v-textarea
-          v-model="comment"
-          label="Comentário"
-          placeholder="Comente sobre a ideia"
-          outlined
-        ></v-textarea>
-      </v-card-text>
+      <div class="d-flex align-center justify-center">
+        <v-card-text style="width: 50%">
+          <v-textarea
+            v-model="comment"
+            prepend-icon="mdi-account"
+            label="Comentário"
+            placeholder="Comente sobre a ideia"
+            outlined
+            rounded
+            rows="1"
+            auto-grow
+          ></v-textarea>
+        </v-card-text>
+      </div>
       <v-card-actions class="d-flex align-center justify-center">
         <v-btn color="primary">Enviar</v-btn>
       </v-card-actions>

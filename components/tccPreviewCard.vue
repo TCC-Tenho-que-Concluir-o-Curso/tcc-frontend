@@ -1,5 +1,5 @@
 <template>
-  <v-card class="tcc-card d-flex flex-column pa-4">
+  <v-card class="tcc-card d-flex flex-column pa-4" @click="goToTCC(id)">
     <h2 class="text-center">{{ title }}</h2>
     <p class="tcc-body text-justify">{{ body }}</p>
   </v-card>
@@ -9,6 +9,10 @@
 export default {
   name: 'TccPreviewCard',
   props: {
+    id: {
+      type: String,
+      required: true,
+    },
     title: {
       type: String,
       required: true,
@@ -18,14 +22,19 @@ export default {
       required: true,
     },
   },
+  methods: {
+    goToTCC(id) {
+      this.$router.push(`/tcc/${id}`)
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .tcc-card {
   background-color: #fafafa;
-  min-width: 500px;
-  max-width: 500px;
+  /* min-width: 500px;
+  max-width: 500px; */
   max-height: 250px;
   max-height: 250px;
 }

@@ -20,7 +20,7 @@
       </v-card-text>
       <v-card-actions class="d-flex align-center justify-center">
         <v-btn color="primary">Enviar</v-btn>
-        <v-btn color="error">Cancelar</v-btn>
+        <v-btn color="error" @click="goToHome()">Voltar</v-btn>
       </v-card-actions>
     </v-card>
   </div>
@@ -33,6 +33,11 @@ export default {
       title: '',
       body: '',
     }
+  },
+  methods: {
+    goToHome() {
+      this.$router.push('/')
+    },
   },
 }
 </script>
