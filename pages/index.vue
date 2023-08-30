@@ -1,5 +1,21 @@
 <template>
-  <div class="d-flex justify-center align-center mt-12">
+  <div class="d-flex flex-column justify-center align-center mt-12">
+    <v-row>
+      <v-text-field
+        v-model="search"
+        background-color="#fafafa"
+        class="my-12 flex-grow-1 flex-shrink-0"
+        style="min-width: 300px; max-width: 80%"
+        autocomplete="nick"
+        solo
+        rows="1"
+      >
+        <template #label>
+          Procure por palavras-chave
+          <v-icon small style="vertical-align: middle"> mdi-magnify </v-icon>
+        </template>
+      </v-text-field>
+    </v-row>
     <v-row justify="space-between" align="center" style="max-width: 1100px">
       <v-col
         v-for="(idea, i) in ideas"
@@ -22,6 +38,7 @@ export default {
   components: { TccPreviewCard },
   data() {
     return {
+      search: '',
       ideas: [
         {
           title: 'Uma Ideia de TCC',

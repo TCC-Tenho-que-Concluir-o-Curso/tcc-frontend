@@ -1,9 +1,9 @@
 <template>
   <v-app>
-    <v-app-bar :clipped-left="clipped" fixed app>
+    <v-app-bar :clipped-left="clipped" color="primary" fixed app>
       <v-spacer />
       <v-img
-        :src="require('../assets/logoTCC.png')"
+        :src="require('../assets/logoTCC2.png')"
         height="50"
         min-width="500"
         aspect-ratio="2:1"
@@ -54,5 +54,6 @@ export default {
 <style>
 .v-card {
   border-radius: 12px !important;
+  background-color: #f9f9f9 !important;
 }
 </style>
