@@ -1,7 +1,6 @@
 <template>
   <v-container class="mt-12" fluid>
     <v-card class="pa-8 cadastro">
-      <!-- delete button -->
       <v-btn
         v-show="shouldShowDeleteButton"
         class="mt-10"
@@ -58,11 +57,6 @@
             rows="1"
             auto-grow
           >
-            <!-- <template #prepend>
-              <v-avatar class="mt-n2" size="36">
-                <img :src="userAvatarUrl" alt="User photo" />
-              </v-avatar>
-            </template> -->
           </v-textarea>
         </v-card-text>
       </div>
@@ -134,14 +128,6 @@ export default {
       await this.$axios.delete(`/api/tcc/title/${this.idea.title}`)
       this.$router.push('/')
     },
-
-    // goToUser(email) {
-    //   console.log('go to user', email)
-    //   this.$router.push({
-    //     name: 'user',
-    //     query: { email },
-    //   })
-    // },
   },
 }
 </script>

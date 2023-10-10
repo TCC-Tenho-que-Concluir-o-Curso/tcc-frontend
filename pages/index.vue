@@ -15,9 +15,6 @@
         </v-text-field>
       </v-col>
 
-      <!-- <v-col cols="auto" align-self="center">
-        <v-btn color="primary" @click="searchByKeywords"> Pesquisar </v-btn>
-      </v-col> -->
       <v-col
         class="d-flex align-center justify-start"
         cols="12"
@@ -29,7 +26,7 @@
         </v-btn>
       </v-col>
     </v-row>
-    <!-- <v-row> -->
+
     <v-col
       v-for="(idea, i) in ideasFiltered"
       :key="i"
@@ -39,7 +36,6 @@
     >
       <TccPreviewCard class="mx-5" :idea="idea" />
     </v-col>
-    <!-- </v-row> -->
   </v-row>
 </template>
 

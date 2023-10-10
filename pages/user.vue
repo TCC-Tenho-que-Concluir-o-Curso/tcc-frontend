@@ -49,11 +49,6 @@ export default {
     console.log('Data', data)
     console.log('TCCS', tccResponse.data)
     this.tccs = tccResponse.data
-
-    // const { data } = await this.$axios.get(`/api/user/${this.idea.authorId}`)
-    // console.log(data)
-    // this.authorName = data.name
-    // this.authorEmail = data.email
   },
 }
 </script>

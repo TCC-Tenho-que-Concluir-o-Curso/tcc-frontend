@@ -39,7 +39,6 @@ export default {
 </script>
 
 <style scoped>
-/* cursor pointer when hover */
 .comment-item {
   cursor: pointer;
 }
