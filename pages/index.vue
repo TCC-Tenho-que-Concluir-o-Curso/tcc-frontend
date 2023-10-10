@@ -56,7 +56,7 @@ export default {
   },
 
   mounted() {
-    this.fetchSomething()
+    this.getTCCList()
   },
 
   methods: {
@@ -71,16 +71,12 @@ export default {
       this.loading = false
     },
 
-    async fetchSomething() {
-      // const ip = await this.$axios.$get('/teste/')
-
+    async getTCCList() {
       const response = await this.$axios.$get('/api/tcc')
 
       this.ideas = response
       this.ideasFiltered = response
       console.log('tccs', response)
-      // console.log('index ip')
-      // console.log(ip)
     },
   },
 }
