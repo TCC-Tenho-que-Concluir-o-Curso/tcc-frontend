@@ -1,12 +1,12 @@
 <template>
-  <v-row justify="center" class="mt-12">
-    <v-row class="mx-5" justify="center">
-      <v-col cols="6">
+  <v-row justify="start" class="mt-12">
+    <v-row class="mx-5" style="width: 100%" justify="center">
+      <v-col cols="12" sm="6">
         <v-text-field
           v-model="search"
           :loading="loading"
           rows="1"
-          @keyup.enter="searchByKeywords"
+          @keyup="searchByKeywords"
         >
           <template #label>
             Procure por palavras-chave
@@ -15,81 +15,76 @@
         </v-text-field>
       </v-col>
 
-      <v-col cols="auto" align-self="center">
+      <!-- <v-col cols="auto" align-self="center">
         <v-btn color="primary" @click="searchByKeywords"> Pesquisar </v-btn>
-      </v-col>
-      <v-col cols="auto" align-self="center">
+      </v-col> -->
+      <v-col
+        class="d-flex align-center justify-start"
+        cols="12"
+        sm="2"
+        align-self="center"
+      >
         <v-btn color="accent" @click="$router.push('/cadastro')">
           Cadastrar Ideia
         </v-btn>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col
-        v-for="(idea, i) in ideas"
-        :key="i"
-        class="my-2 d-flex justify-center"
-        cols="12"
-        md="6"
-      >
-        <TccPreviewCard
-          :id="idea.id"
-          class="mx-5"
-          :body="idea.body"
-          :title="idea.title"
-        />
-      </v-col>
-    </v-row>
+    <!-- <v-row> -->
+    <v-col
+      v-for="(idea, i) in ideasFiltered"
+      :key="i"
+      class="my-2 d-flex justify-center"
+      cols="12"
+      md="6"
+    >
+      <TccPreviewCard class="mx-5" :idea="idea" />
+    </v-col>
+    <!-- </v-row> -->
   </v-row>
 </template>
 
 <script>
-import TccPreviewCard from '~/components/tccPreviewCard.vue'
+import TccPreviewCard from '~/components/TccPreviewCard'
 
 export default {
   name: 'IndexPage',
   components: { TccPreviewCard },
+  middleware: 'auth',
   data() {
     return {
       search: '',
-      ideas: [
-        {
-          id: '',
-          title: 'Uma Ideia de TCC',
-          body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident iste distinctio autem recusandae minima qui, architecto nulla aliquam possimus. Quidem quas quam et libero. Atque, recusandae. Exercitationem voluptas quos fugiat! At sed architecto perferendis et enim iusto provident ipsa aliquid. Earum culpa ex perspiciatis accusantium voluptate fuga ipsa minima. Dolorum ab veritatis praesentium laborum commodi. Aliquid suscipit reprehenderit excepturi aut. Odio asperiores nesciunt nulla ea sunt! Ut eius porro atque labore fugiat cupiditate beatae, fuga officia delectus ipsam doloremque et dolor praesentium, neque enim repellat quod esse. Earum, illum alias. Aperiam nisi facilis similique fugiat natus ipsa expedita non sequi atque placeat porro molestias voluptate dicta quidem, molestiae, dolorum ipsam modi. Atque soluta quibusdam minima. Laudantium consequuntur praesentium dolor reiciendis!',
-        },
-        {
-          id: '',
-          title: 'Uma Ideia de TCC',
-          body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident iste distinctio autem recusandae minima qui, architecto nulla aliquam possimus. Quidem quas quam et libero. Atque, recusandae. Exercitationem voluptas quos fugiat! At sed architecto perferendis et enim iusto provident ipsa aliquid. Earum culpa ex perspiciatis accusantium voluptate fuga ipsa minima. Dolorum ab veritatis praesentium laborum commodi. Aliquid suscipit reprehenderit excepturi aut. Odio asperiores nesciunt nulla ea sunt! Ut eius porro atque labore fugiat cupiditate beatae, fuga officia delectus ipsam doloremque et dolor praesentium, neque enim repellat quod esse. Earum, illum alias. Aperiam nisi facilis similique fugiat natus ipsa expedita non sequi atque placeat porro molestias voluptate dicta quidem, molestiae, dolorum ipsam modi. Atque soluta quibusdam minima. Laudantium consequuntur praesentium dolor reiciendis!',
-        },
-        {
-          id: '',
-          title: 'Uma Ideia de TCC',
-          body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident iste distinctio autem recusandae minima qui, architecto nulla aliquam possimus. Quidem quas quam et libero. Atque, recusandae. Exercitationem voluptas quos fugiat! At sed architecto perferendis et enim iusto provident ipsa aliquid. Earum culpa ex perspiciatis accusantium voluptate fuga ipsa minima. Dolorum ab veritatis praesentium laborum commodi. Aliquid suscipit reprehenderit excepturi aut. Odio asperiores nesciunt nulla ea sunt! Ut eius porro atque labore fugiat cupiditate beatae, fuga officia delectus ipsam doloremque et dolor praesentium, neque enim repellat quod esse. Earum, illum alias. Aperiam nisi facilis similique fugiat natus ipsa expedita non sequi atque placeat porro molestias voluptate dicta quidem, molestiae, dolorum ipsam modi. Atque soluta quibusdam minima. Laudantium consequuntur praesentium dolor reiciendis!',
-        },
-        {
-          id: '',
-          title: 'Uma Ideia de TCC',
-          body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident iste distinctio autem recusandae minima qui, architecto nulla aliquam possimus. Quidem quas quam et libero. Atque, recusandae. Exercitationem voluptas quos fugiat! At sed architecto perferendis et enim iusto provident ipsa aliquid. Earum culpa ex perspiciatis accusantium voluptate fuga ipsa minima. Dolorum ab veritatis praesentium laborum commodi. Aliquid suscipit reprehenderit excepturi aut. Odio asperiores nesciunt nulla ea sunt! Ut eius porro atque labore fugiat cupiditate beatae, fuga officia delectus ipsam doloremque et dolor praesentium, neque enim repellat quod esse. Earum, illum alias. Aperiam nisi facilis similique fugiat natus ipsa expedita non sequi atque placeat porro molestias voluptate dicta quidem, molestiae, dolorum ipsam modi. Atque soluta quibusdam minima. Laudantium consequuntur praesentium dolor reiciendis!',
-        },
-        {
-          id: '',
-          title: 'Uma Ideia de TCC',
-          body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident iste distinctio autem recusandae minima qui, architecto nulla aliquam possimus. Quidem quas quam et libero. Atque, recusandae. Exercitationem voluptas quos fugiat! At sed architecto perferendis et enim iusto provident ipsa aliquid. Earum culpa ex perspiciatis accusantium voluptate fuga ipsa minima. Dolorum ab veritatis praesentium laborum commodi. Aliquid suscipit reprehenderit excepturi aut. Odio asperiores nesciunt nulla ea sunt! Ut eius porro atque labore fugiat cupiditate beatae, fuga officia delectus ipsam doloremque et dolor praesentium, neque enim repellat quod esse. Earum, illum alias. Aperiam nisi facilis similique fugiat natus ipsa expedita non sequi atque placeat porro molestias voluptate dicta quidem, molestiae, dolorum ipsam modi. Atque soluta quibusdam minima. Laudantium consequuntur praesentium dolor reiciendis!',
-        },
-      ],
+      ideasFiltered: [],
+      ideas: [],
       loading: false,
     }
   },
+
+  mounted() {
+    this.fetchSomething()
+  },
+
   methods: {
     searchByKeywords() {
       this.loading = true
+      this.ideasFiltered = this.ideas.filter((idea) => {
+        return (
+          idea.title.toLowerCase().includes(this.search.toLowerCase()) ||
+          idea.body.toLowerCase().includes(this.search.toLowerCase())
+        )
+      })
+      this.loading = false
+    },
 
-      setTimeout(() => {
-        this.loading = false
-        this.loaded = true
-      }, 2000)
+    async fetchSomething() {
+      // const ip = await this.$axios.$get('/teste/')
+
+      const response = await this.$axios.$get('/api/tcc')
+
+      this.ideas = response
+      this.ideasFiltered = response
+      console.log('tccs', response)
+      // console.log('index ip')
+      // console.log(ip)
     },
   },
 }

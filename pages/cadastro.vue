@@ -19,7 +19,9 @@
         ></v-textarea>
       </v-card-text>
       <v-card-actions class="d-flex align-center justify-center">
-        <v-btn color="primary">Enviar</v-btn>
+        <v-btn :disabled="!isValidTCC" color="primary" @click="sendTCCIdea()"
+          >Enviar</v-btn
+        >
         <v-btn color="error" @click="goToHome()">Voltar</v-btn>
       </v-card-actions>
     </v-card>
@@ -34,8 +36,24 @@ export default {
       body: '',
     }
   },
+
+  computed: {
+    isValidTCC() {
+      return this.title.length > 0 && this.body.length > 0
+    },
+  },
+
   methods: {
     goToHome() {
+      this.$router.push('/')
+    },
+
+    async sendTCCIdea() {
+      console.log('mandando tcc')
+      await this.$axios.post('/api/tcc', {
+        title: this.title,
+        body: this.body,
+      })
       this.$router.push('/')
     },
   },

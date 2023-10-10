@@ -1,19 +1,33 @@
 <template>
   <v-app>
     <v-app-bar :clipped-left="clipped" color="primary" fixed app>
+      <v-btn v-show="user" plain @click="logout">
+        <v-icon>mdi-logout</v-icon>
+        sair
+      </v-btn>
+
       <v-spacer />
-      <NuxtLink to="/">
-        <v-row>
+
+      <v-row justify="center">
+        <div class="py-1">
           <v-img
             :src="require('../assets/logoTCC2.png')"
-            height="50"
-            width="500"
-            aspect-ratio="2/1"
+            height="60"
+            min-width="600"
+            aspect-ratio="10/1"
             cover
+            style="cursor: pointer"
+            @click="goHome"
           ></v-img>
-        </v-row>
-      </NuxtLink>
+        </div>
+      </v-row>
+
       <v-spacer />
+
+      <v-btn v-show="user" plain @click="goToProfile">
+        <v-icon>mdi-account</v-icon>
+        perfil
+      </v-btn>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -34,23 +48,42 @@ export default {
       clipped: false,
       drawer: false,
       fixed: false,
-      items: [
-        {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/',
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire',
-        },
-      ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
       title: 'Tenho que Terminar o Curso',
     }
+  },
+
+  computed: {
+    user() {
+      return this.$store.getters.isLoggedIn
+    },
+  },
+
+  methods: {
+    async logout() {
+      try {
+        console.log('logout')
+        await this.$fire.auth.signOut()
+        this.$router.push('/login')
+      } catch (error) {
+        console.log('Erro ao deslogar')
+        console.log(error)
+      }
+    },
+
+    goHome() {
+      this.$router.push('/')
+    },
+
+    goToProfile() {
+      const email = this.$fire.auth.currentUser.email
+      this.$router.push({
+        name: 'user',
+        query: { email },
+      })
+    },
   },
 }
 </script>

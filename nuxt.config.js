@@ -21,7 +21,7 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [{ src: '~/plugins/axiosAuth.js', ssr: false }],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -38,12 +38,52 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    [
+      '@nuxtjs/firebase',
+      {
+        config: {
+          apiKey: 'AIzaSyAnKuZNHhN6hljD47A5TEIhgaQYxbDoG9s',
+          authDomain: 'tenho-que-concluir-o-curso.firebaseapp.com',
+          projectId: 'tenho-que-concluir-o-curso',
+          storageBucket: 'tenho-que-concluir-o-curso.appspot.com',
+          messagingSenderId: '909458436148',
+          appId: '1:909458436148:web:bdda3d8ac3abec91971a61',
+        },
+        services: {
+          auth: {
+            persistence: 'session',
+            initialize: {
+              // onAuthStateChangedMutation: 'ON_AUTH_STATE_CHANGED_MUTATION',
+              onAuthStateChangedAction: 'onAuthStateChanged',
+              subscribeManually: false,
+            },
+            // ssr: true,
+            // emulatorPort: 9099,
+            // emulatorHost: 'http://localhost',
+          },
+        },
+      },
+    ],
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     baseURL: '/',
+    proxy: true,
+  },
+
+  proxy: {
+    '/api/': {
+      target: 'http://127.0.0.1:5001',
+      pathRewrite: { '^/api/': '' },
+      changeOrigin: true,
+    },
+    '/teste/': {
+      target: 'http://icanhazip.com',
+      pathRewrite: { '^/api/': '' },
+      changeOrigin: true,
+    },
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
@@ -66,4 +106,10 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  // routeRules: {
+  //   '/testeapi': {
+  //     proxy: { to: 'http://icanhazip.com' },
+  //   },
+  // },
 }

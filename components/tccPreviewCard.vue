@@ -1,7 +1,7 @@
 <template>
-  <v-card class="tcc-card d-flex flex-column pa-4" @click="goToTCC(id)">
-    <h2 class="text-center">{{ title }}</h2>
-    <p class="tcc-body text-justify">{{ body }}</p>
+  <v-card class="tcc-card d-flex flex-column pa-4" @click="goToTCC()">
+    <h2 class="text-center mb-2">{{ idea.title }}</h2>
+    <p class="tcc-body text-justify">{{ idea.body }}</p>
   </v-card>
 </template>
 
@@ -9,22 +9,17 @@
 export default {
   name: 'TccPreviewCard',
   props: {
-    id: {
-      type: String,
-      required: true,
-    },
-    title: {
-      type: String,
-      required: true,
-    },
-    body: {
-      type: String,
+    idea: {
+      type: Object,
       required: true,
     },
   },
   methods: {
-    goToTCC(id) {
-      this.$router.push(`/tcc/${id}`)
+    goToTCC() {
+      this.$router.push({
+        name: 'tcc',
+        query: { title: this.idea.title },
+      })
     },
   },
 }
@@ -33,10 +28,9 @@ export default {
 <style lang="scss" scoped>
 .tcc-card {
   background-color: #fafafa;
-  /* min-width: 500px;
-  max-width: 500px; */
-  max-height: 250px;
-  max-height: 250px;
+  max-width: 600px;
+  min-height: 260px;
+  min-width: 200px;
 }
 
 .tcc-body {
