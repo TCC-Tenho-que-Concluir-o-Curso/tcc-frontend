@@ -125,7 +125,7 @@ export default {
     },
 
     async deleteIdea() {
-      await this.$axios.delete(`/api/tcc/title/${this.idea.title}`)
+      await this.$axios.delete(`/api/tcc/title/${this.idea.title}`).query
       this.$router.push('/')
     },
   },

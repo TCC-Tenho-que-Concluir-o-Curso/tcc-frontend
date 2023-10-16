@@ -1,12 +1,18 @@
 <template>
   <v-container>
-    <v-card class="d-flex align-center justify-center pa-2">
-      <v-avatar size="64">
-        <img :src="userAvatarUrl" alt="User photo" />
-      </v-avatar>
-      <div>
-        <v-card-title>{{ userName }}</v-card-title>
-        <v-card-subtitle>{{ userEmail }}</v-card-subtitle>
+    <v-card class="d-flex flex-column align-center justify-center pa-2">
+      <div class="d-flex align-center">
+        <v-avatar size="64">
+          <img :src="userAvatarUrl" alt="User photo" />
+        </v-avatar>
+        <div>
+          <v-card-title>{{ userName }}</v-card-title>
+          <v-card-subtitle>{{ userEmail }}</v-card-subtitle>
+        </div>
+      </div>
+
+      <div v-if="userLoaded" class="tagsGroup">
+        <TagsGroup :user="user" />
       </div>
     </v-card>
     <v-card class="mt-10 pa-4">
@@ -31,6 +37,8 @@ export default {
   },
   data() {
     return {
+      user: {},
+      userLoaded: false,
       userId: '',
       userEmail: this.$route.query.email,
       userName: '',
@@ -39,8 +47,10 @@ export default {
     }
   },
 
-  async created() {
+  async mounted() {
     const { data } = await this.$axios.get(`/api/user/email/${this.userEmail}`)
+    this.userLoaded = true
+    this.user = data
     this.userId = data.firebase_uid
     this.userName = data.name
     this.userEmail = data.email
@@ -52,3 +62,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.tagsGroup {
+  max-width: 80%;
+}
+</style>

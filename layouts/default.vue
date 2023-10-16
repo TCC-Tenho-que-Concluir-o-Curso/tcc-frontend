@@ -1,10 +1,13 @@
 <template>
   <v-app>
     <v-app-bar :clipped-left="clipped" color="primary" fixed app>
-      <v-btn v-show="user" plain @click="logout">
-        <v-icon>mdi-logout</v-icon>
-        sair
-      </v-btn>
+      <v-app-bar-nav-icon
+        v-show="isLoggedIn"
+        variant="text"
+        absolute
+        @click.stop="drawer = !drawer"
+      >
+      </v-app-bar-nav-icon>
 
       <v-spacer />
 
@@ -23,12 +26,42 @@
       </v-row>
 
       <v-spacer />
-
-      <v-btn v-show="user" plain @click="goToProfile">
-        <v-icon>mdi-account</v-icon>
-        perfil
-      </v-btn>
     </v-app-bar>
+
+    <v-navigation-drawer v-model="drawer" temporary fixed app>
+      <template #prepend>
+        <v-list-item two-line>
+          <v-list-item-avatar>
+            <v-img :src="user?.photoURL" />
+          </v-list-item-avatar>
+
+          <v-list-item-content>
+            <v-list-item-title> {{ user?.displayName }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-divider></v-divider>
+      </template>
+
+      <v-list>
+        <v-list-item
+          v-for="(item, i) in items"
+          :key="i"
+          router
+          exact
+          @click="item.action"
+        >
+          <v-list-item-action>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>
+              {{ item.title }}
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
     <v-main>
       <v-container>
         <Nuxt />
@@ -45,6 +78,7 @@ export default {
   name: 'DefaultLayout',
   data() {
     return {
+      user: {},
       clipped: false,
       drawer: false,
       fixed: false,
@@ -52,13 +86,28 @@ export default {
       right: true,
       rightDrawer: false,
       title: 'Tenho que Terminar o Curso',
+      items: [
+        { title: 'Home', icon: 'mdi-home', action: this.goHome },
+        { title: 'Perfil', icon: 'mdi-account', action: this.goToProfile },
+        {
+          title: 'Buscar Usuário',
+          icon: 'mdi-account-search',
+          action: this.goToSearchUser,
+        },
+        { title: 'Sair', icon: 'mdi-logout', action: this.logout },
+        // { title: 'Testar feature', icon: 'mdi-cog', action: this.goToTeste },
+      ],
     }
   },
 
   computed: {
-    user() {
+    isLoggedIn() {
       return this.$store.getters.isLoggedIn
     },
+  },
+
+  created() {
+    this.user = this.$fire.auth.currentUser
   },
 
   methods: {
@@ -83,6 +132,15 @@ export default {
         name: 'user',
         query: { email },
       })
+    },
+
+    goToSearchUser() {
+      this.$router.push('/buscar-usuario')
+    },
+
+    async goToTeste() {
+      const response = await this.$axios.get('/api/users/migrate')
+      console.log('TESTE RESPONSE', response)
     },
   },
 }
