@@ -15,6 +15,19 @@
         </v-text-field>
       </v-col>
 
+      <v-col class="d-flex align-center flex-column">
+        <span class="subheading">Filtre por tags de interesse:</span>
+        <v-chip-group
+          v-model="selectedTags"
+          active-class="primary--text"
+          multiple
+        >
+          <v-chip v-for="(tag, i) in tags" :key="i" class="ma-2" filter>
+            {{ tag }}
+          </v-chip>
+        </v-chip-group>
+      </v-col>
+
       <v-col cols="12">
         <v-list>
           <v-list-item
@@ -42,7 +55,23 @@ export default {
       loading: false,
       users: [],
       filteredUsers: [],
+      selectedTags: [],
+      tags: [
+        'Engenharia de Software',
+        'Informática na Educação',
+        'Inteligência Artificial',
+        'Redes e Sistemas Distribuídos',
+        'Sistemas de Informação e Banco de Dados',
+      ],
     }
+  },
+
+  watch: {
+    selectedTags() {
+      this.filteredUsers = this.users.filter((user) => {
+        return this.selectedTags.every((tag) => user.tags.includes(tag))
+      })
+    },
   },
 
   async created() {

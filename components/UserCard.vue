@@ -45,7 +45,7 @@ export default {
 <style scoped>
 .userItem {
   max-width: 80%;
-  min-width: 70%;
+  min-width: 80%;
   cursor: pointer;
 }
 </style>

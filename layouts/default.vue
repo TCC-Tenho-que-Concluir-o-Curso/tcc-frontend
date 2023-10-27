@@ -94,6 +94,11 @@ export default {
           icon: 'mdi-account-search',
           action: this.goToSearchUser,
         },
+        {
+          title: 'Cadastrar Tema',
+          icon: 'mdi-book-plus',
+          action: this.goToTCCRegister,
+        },
         { title: 'Sair', icon: 'mdi-logout', action: this.logout },
         // { title: 'Testar feature', icon: 'mdi-cog', action: this.goToTeste },
       ],
@@ -141,6 +146,10 @@ export default {
     async goToTeste() {
       const response = await this.$axios.get('/api/users/migrate')
       console.log('TESTE RESPONSE', response)
+    },
+
+    goToTCCRegister() {
+      this.$router.push('/cadastro')
     },
   },
 }
