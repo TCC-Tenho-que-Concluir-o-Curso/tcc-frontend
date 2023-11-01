@@ -78,9 +78,6 @@ export default {
     this.userType = await this.$store.getters.userTypeFormattedPlural
     this.users = await this.$axios.$get(`/api/users`)
     this.filteredUsers = this.users
-    // this.filteredUsers.map((user, i) => {
-    //   user.name = user.name + i
-    // })
     console.log(this.users)
   },
 
