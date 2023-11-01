@@ -112,7 +112,7 @@ export default {
   },
 
   created() {
-    this.user = this.$fire.auth.currentUser
+    this.user = this.$store.getters.user
   },
 
   methods: {
