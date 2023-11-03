@@ -14,6 +14,17 @@
         </v-card>
       </v-col>
     </v-row>
+
+    <div class="mx-auto mt-12" style="max-width: 370px">
+      <v-alert
+        :value="alert"
+        dark
+        transition="scroll-x-transition"
+        :type="alertType"
+      >
+        {{ errorMsg }}
+      </v-alert>
+    </div>
   </v-container>
 </template>
 
@@ -24,6 +35,9 @@ export default {
   data() {
     return {
       loading: false,
+      alert: false,
+      alertType: 'error',
+      errorMsg: '',
     }
   },
 
@@ -47,14 +61,7 @@ export default {
           new this.$fireModule.auth.GoogleAuthProvider()
         )
 
-        const uid = authData.user.uid
-        const email = authData.user.email
-        console.log(uid)
-
-        this.$store.dispatch('setUserAuth', {
-          uid,
-          email,
-        })
+        this.$store.dispatch('setUserAuth', authData.user)
 
         const data = {
           firebase_uid: this.$fire.auth.currentUser.uid,
@@ -71,6 +78,11 @@ export default {
         await this.$fire.auth.signOut()
         console.log(error)
         console.log(error.response.data.message)
+        this.alert = true
+        this.errorMsg = error.response.data.message
+        setTimeout(() => {
+          this.alert = false
+        }, 5000)
       } finally {
         this.loading = false
       }
