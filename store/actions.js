@@ -43,6 +43,10 @@ export default {
   },
 
   setUserAuth({ commit }, authUser) {
+    if (!authUser) {
+      commit('RESET_STORE')
+      return
+    }
     commit('SET_AUTH_USER', authUser)
   },
 }

@@ -78,7 +78,6 @@ export default {
   name: 'DefaultLayout',
   data() {
     return {
-      user: {},
       clipped: false,
       drawer: false,
       fixed: false,
@@ -107,19 +106,26 @@ export default {
 
   computed: {
     isLoggedIn() {
-      return this.$store.getters.isLoggedIn
+      const loggedIn =
+        this.$store.getters.user?.type !== null &&
+        this.$store.getters.user?.type !== undefined
+      console.log('isLoggedIn: ', loggedIn)
+      return loggedIn
+    },
+
+    user() {
+      return this.$store.getters.user
     },
   },
 
-  created() {
-    this.user = this.$store.getters.user
-  },
+  created() {},
 
   methods: {
     async logout() {
       try {
         console.log('logout')
         await this.$fire.auth.signOut()
+        this.$store.dispatch('setUserAuth', null)
         this.$router.push('/login')
       } catch (error) {
         console.log('Erro ao deslogar')
