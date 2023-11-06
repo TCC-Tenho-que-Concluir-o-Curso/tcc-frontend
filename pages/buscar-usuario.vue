@@ -48,6 +48,7 @@ import UserCard from '~/components/UserCard.vue'
 export default {
   name: 'BuscarUsuario',
   components: { UserCard },
+  middleware: 'auth',
   data() {
     return {
       search: '',

@@ -1,13 +1,15 @@
 <template>
-  <v-app>
+  <div class="d-flex align-center justify-center flex-column">
     <h1 v-if="error.statusCode === 404">
       {{ pageNotFound }}
     </h1>
     <h1 v-else>
       {{ otherError }}
     </h1>
-    <NuxtLink to="/"> Home page </NuxtLink>
-  </v-app>
+    <div>
+      <v-btn @click="$router.push('/home')"> Voltar para a Home </v-btn>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -23,7 +25,7 @@ export default {
   data() {
     return {
       pageNotFound: '404 Not Found',
-      otherError: 'An error occurred',
+      otherError: 'Ocorreu um erro',
     }
   },
   head() {

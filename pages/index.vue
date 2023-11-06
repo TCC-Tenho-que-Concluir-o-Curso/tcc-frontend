@@ -1,5 +1,9 @@
 <template>
   <v-row justify="start" class="mt-12">
+    <p style="width: 100%" class="text-h5 text-center">
+      Aqui serão listados os temas cadastrados pelos
+      {{ $store.getters.userTypeFormattedPlural }}
+    </p>
     <v-row class="mx-5" style="width: 100%" justify="center">
       <v-col cols="12" sm="6">
         <v-text-field
@@ -34,7 +38,7 @@
       cols="12"
       md="6"
     >
-      <TccPreviewCard class="mx-5" :idea="idea" />
+      <TccPreviewCard :idea="idea" />
     </v-col>
   </v-row>
 </template>
@@ -57,6 +61,7 @@ export default {
 
   mounted() {
     this.getTCCList()
+    console.log(this.$store.state.authUser.user.type)
   },
 
   methods: {

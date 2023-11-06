@@ -1,6 +1,6 @@
 export default function ({ store, redirect }) {
   console.log('middleware/auth.js', store.getters.isLoggedIn)
   if (!store.getters.isLoggedIn) {
-    return redirect('/login')
+    return redirect('/home')
   }
 }

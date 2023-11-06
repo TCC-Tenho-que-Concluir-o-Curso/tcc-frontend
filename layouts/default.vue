@@ -86,10 +86,14 @@ export default {
       rightDrawer: false,
       title: 'Tenho que Terminar o Curso',
       items: [
-        { title: 'Home', icon: 'mdi-home', action: this.goHome },
+        {
+          title: 'Listagem de Temas',
+          icon: 'mdi-view-list',
+          action: this.goToListTCC,
+        },
         { title: 'Perfil', icon: 'mdi-account', action: this.goToProfile },
         {
-          title: 'Buscar Usuário',
+          title: `Buscar ${this.$store.getters.userTypeFormattedPlural}`,
           icon: 'mdi-account-search',
           action: this.goToSearchUser,
         },
@@ -126,15 +130,19 @@ export default {
         console.log('logout')
         await this.$fire.auth.signOut()
         this.$store.dispatch('setUserAuth', null)
-        this.$router.push('/login')
+        this.$router.push('/home')
       } catch (error) {
         console.log('Erro ao deslogar')
         console.log(error)
       }
     },
 
-    goHome() {
+    goToListTCC() {
       this.$router.push('/')
+    },
+
+    goHome() {
+      this.$router.push('/home')
     },
 
     goToProfile() {

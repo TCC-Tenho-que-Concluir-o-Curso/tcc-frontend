@@ -30,6 +30,7 @@
 
 <script>
 export default {
+  middleware: 'auth',
   data() {
     return {
       title: '',
@@ -54,7 +55,12 @@ export default {
         title: this.title,
         body: this.body,
       })
-      this.$router.push('/')
+
+      const email = this.$fire.auth.currentUser.email
+      this.$router.push({
+        name: 'user',
+        query: { email },
+      })
     },
   },
 }

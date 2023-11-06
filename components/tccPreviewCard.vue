@@ -28,9 +28,8 @@ export default {
 <style lang="scss" scoped>
 .tcc-card {
   background-color: #fafafa;
-  max-width: 600px;
   min-height: 260px;
-  min-width: 200px;
+  width: 90%;
 }
 
 .tcc-body {
