@@ -122,12 +122,19 @@ export default {
     },
   },
 
+  watch: {
+    '$store.getters.user'() {
+      this.items[2].title = `Buscar ${this.$store.getters.userTypeFormattedPlural}`
+    },
+  },
+
   created() {},
 
   methods: {
     async logout() {
       try {
         console.log('logout')
+        this.drawer = false
         await this.$fire.auth.signOut()
         this.$store.dispatch('setUserAuth', null)
         this.$router.push('/home')

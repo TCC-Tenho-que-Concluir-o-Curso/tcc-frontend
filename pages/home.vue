@@ -7,13 +7,15 @@
           Tenho que Concluir o Curso
         </p>
         <v-divider></v-divider>
-        <p class="text-h6 text-justify mt-4">
-          Aqui os alunos podem cadastrar seus temas de TCC e procurar por
-          professores que possam orientá-los.
+        <p class="text-h5 font-weight-bold text-center mt-4">
+          Um lugar para o aluno encontrar professores orientadores e seus temas
+          de TCC disponíveis!
         </p>
-        <p class="text-h6 text-justify">
-          Os professores também podem se cadastrar e disponibilizar seus temas
-          de TCC para os alunos.
+
+        <p class="text-subtitle-1 text-center">
+          Os temas cadastrados pelos professores só podem ser vistos pelos
+          alunos, e os alunos só podem ver os temas cadastrados pelos
+          professores.
         </p>
 
         <v-card-actions class="d-flex align-center justify-center">
